@@ -31,7 +31,7 @@
 package Tk::XML::WizardMaker;
 
 # version
-our $VERSION = '0.90';
+our $VERSION = '0.91';
 
 ################################################################################
 # modules we use                                                               #
@@ -448,7 +448,7 @@ sub show{
      -expand=>'0', -ipadx=>10, -ipady=>10);
 
   $self->{internal}->{deco_frame}
-    ->pack(-in =>$mf, -side=>'bottom', -fill=>'x', -expand=>'0', padx=>0,);
+    ->pack(-in =>$mf, -side=>'bottom', -fill=>'x', -expand=>'0', -padx=>0,);
 
   # show user frame (only this part is really dynamic)
   $self->render($self->current_node) if ($self->current_node);
@@ -925,7 +925,7 @@ sub page_body_container{
     -foreground         => $fg,
     -font               => $font,
     -setgrid            => 0,
-    )->pack(fill => 'both', -expand=>'1', -side => 'top');
+    )->pack(-fill => 'both', -expand=>'1', -side => 'top');
 
   # returns the container frame for all page elements
   return $p->{tk_object}->{body_container};
@@ -963,7 +963,7 @@ sub add_text_page{
   $p->{tk_object}->{summary_text}->insert('0.0', $summary);
   $p->{tk_object}->{summary_text}->configure(-wrap=>'word',-state=>"disabled");
   $p->{tk_object}->{summary_text}->
-    pack(fill => 'both', -expand=>'1', -side => 'top');
+    pack(-fill => 'both', -expand=>'1', -side => 'top');
 
   return $p->{tk_object}->{summary_text};
 
@@ -1667,7 +1667,7 @@ sub set_common_image{
 
   eval {
     $image = $self->Photo(${image_name}.${id}, -file=>$image_file);
-    $self->configure_common_element($position . '_image', ('image', $image));
+    $self->configure_common_element($position . '_image', ('-image', $image));
   };
 
   warn $@ if $@;     # where good for debugging ...
